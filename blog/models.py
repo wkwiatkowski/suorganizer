@@ -11,10 +11,11 @@ class Post(models.Model):
         db_index=True)
     slug = models.SlugField(
         max_length=61,
-#        unique_for_month='pub_date',
+        unique_for_month='pub_date',
         help_text="A label for URL config.")
     text = models.TextField()
-#    pub_date = models.DateField()
+    pub_date = models.DateField('date published',
+            auto_now_add=True)
     tags = models.ManyToManyField(
         Tag,
         related_name='blog_post')
@@ -27,6 +28,6 @@ class Post(models.Model):
             self.pub_date.strftime('%Y-%m-%d'))
     class Meta:
         verbose_name = 'blog post'
-#        ordering = ['-pub_date', 'title']
-#        get_latest_by = 'pub_date'
+        ordering = ['-pub_date', 'title']
+        get_latest_by = 'pub_date'
 
